@@ -1,14 +1,25 @@
 import time
+import multiDictionary
+import spellchecker as sc
 
-import multiDictionary as md
+md = multiDictionary.MultiDictionary()
 
 class SpellChecker:
 
     def __init__(self):
         pass
 
-    def handleSentence(self, txtIn, language):
-        pass
+    def handleSentence(self, txtIn):
+        """
+        prende la frase in ingresso, rimuove i caratteri speciali e la rende tutta minuscola
+        e mette ciascuna parola in una stringa
+        :param txtIn: il testo digitato da correggere
+        :return: la lista di parole digitate minuscole e senza caratteri speciali
+        """
+        # rimuovo caratteri speciali
+        sc.replaceChars(txtIn)
+        lista_input=txtIn.lower().split(" ")
+        return lista_input
 
     def printMenu(self):
         print("______________________________\n" +
@@ -23,4 +34,12 @@ class SpellChecker:
 
 
 def replaceChars(text):
-    pass
+    '''
+    prende il testo in ingresso e rimuove tutti i caratteri intrusi
+    :param text: il testo da correggere
+    :return: il testo senza caratteri speciali
+    '''
+    chars = "\\`*_{}[]()>#+-.!$%^;,=_~"
+    for c in chars:
+        text = text.replace(c, "")
+    return text
