@@ -46,18 +46,24 @@ class MultiDictionary:
     def searchWordDichotomic(self, words, nome_file):
         diz = d.loadDictionary(nome_file)
         lista_sbagliate=[]
-        posizione_centrale = int(len(diz)/2)
-        flag_trovata = False
         for word in words:
-            while not flag_trovata:
+            flag_trovata = False
+            estremo_inf=0
+            estremo_sup=len(diz)-1
+            posizione_centrale = estremo_inf + (estremo_sup-estremo_inf)//2
+            while estremo_inf<=estremo_sup:
+                posizione_centrale = estremo_inf + (estremo_sup - estremo_inf) // 2
                 if word == diz[int(posizione_centrale)]:
-                    lista_sbagliate.append(word)
                     flag_trovata = True
+                    break
                 elif word < diz[int(posizione_centrale)]:
-                    posizione_centrale = int(posizione_centrale)/2
+                    estremo_sup = posizione_centrale - 1
                 elif word > diz[int(posizione_centrale)]:
-                    posizione_centrale = int(posizione_centrale)*1.5
+                    estremo_inf = posizione_centrale + 1
+            if not flag_trovata:
+                lista_sbagliate.append(word)
         return lista_sbagliate
+
 
 
 
